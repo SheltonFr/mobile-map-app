@@ -16,6 +16,11 @@ import com.groupjob.mapapp.databinding.ActivitySignupBinding;
 
 public class SignupActivity extends AppCompatActivity {
 
+    /*
+     * A senha deve ter pelo menos 6 caracteres
+     * */
+
+
     private ActivitySignupBinding binding;
     private FirebaseAuth auth;
 
@@ -25,7 +30,7 @@ public class SignupActivity extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.gotLogin.setOnClickListener(e -> startActivity(new Intent(SignupActivity.this, AuthActivity.class)));
+        binding.gotLogin.setOnClickListener(e -> startActivity(new Intent(SignupActivity.this, SigninActivity.class)));
     }
 
     @Override
@@ -38,14 +43,15 @@ public class SignupActivity extends AppCompatActivity {
             String email = binding.username.getText().toString();
             String password = binding.password.getText().toString();
 
-            auth.createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword("shelton@gmail.com", "000000")
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                startActivity(new Intent(SignupActivity.this, AuthActivity.class));
-                                Log.d("CADASTRAR", "DONE");
+                                startActivity(new Intent(SignupActivity.this, SigninActivity.class));
+                                Log.d("Auth", "DONE");
                             } else {
+                                Log.d("Auth", "ERROR");
                                 Toast.makeText(SignupActivity.this, "Authentication Faild", Toast.LENGTH_SHORT).show();
                             }
                         }

@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.groupjob.mapapp.databinding.ActivityAuthBinding;
 
-public class AuthActivity extends AppCompatActivity {
+public class SigninActivity extends AppCompatActivity {
 
     private ActivityAuthBinding binding;
     private FirebaseAuth auth;
@@ -25,7 +25,7 @@ public class AuthActivity extends AppCompatActivity {
         binding = ActivityAuthBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.goCreate.setOnClickListener(e -> startActivity(new Intent(AuthActivity.this, SignupActivity.class)));
+        binding.goCreate.setOnClickListener(e -> startActivity(new Intent(SigninActivity.this, SignupActivity.class)));
 
 
         auth = FirebaseAuth.getInstance();
@@ -45,9 +45,9 @@ public class AuthActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
                                 FirebaseUser user = auth.getCurrentUser();
-                                startActivity(new Intent(AuthActivity.this, MapsActivity.class));
+                                startActivity(new Intent(SigninActivity.this, MapsActivity.class));
                             } else {
-                                Toast.makeText(AuthActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SigninActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
