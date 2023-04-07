@@ -2,7 +2,7 @@
     "http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/dark"
     >
 
     <TextView
@@ -13,7 +13,7 @@
         android:textSize="44sp"
         android:layout_above="@+id/imgLogo"
         android:layout_marginBottom="150dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"/>
 
     <ImageView
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/map_marker" />
+        android:src="@drawable/baseline_add_location_alt_24" />
 
     <TextView
         android:layout_width="fill_parent"
