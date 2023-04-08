@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    android:paddingHorizontal="23dp"
+    android:paddingHorizontal="13dp"
     tools:context=".SignupActivity">
 
 
@@ -14,7 +14,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="108dp"
         android:gravity="center"
         android:text="Sign Up"
         android:textColor="#fff"
@@ -26,10 +26,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/text_sign"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,10 +64,10 @@
         android:background="@drawable/form_container_shape"
         android:orientation="vertical"
         android:paddingHorizontal="25dp"
-        android:paddingVertical="40dp"
+        android:paddingVertical="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_sign">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
         <EditText
@@ -140,8 +139,8 @@
     <LinearLayout
         android:id="@+id/media"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginBottom="13dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="40dp"
         android:divider="@drawable/space_between_icons"
         android:elevation="2dp"
         android:gravity="center"
@@ -153,21 +152,21 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:layout_width="56dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:background="@drawable/shap_social_media_icons"
             android:padding="16dp"
             android:src="@drawable/icons8_twitter" />
 
         <ImageView
-            android:layout_width="56dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:background="@drawable/shap_social_media_icons"
             android:padding="16dp"
             android:src="@drawable/googleg_standard_color_18" />
 
         <ImageView
-            android:layout_width="56dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:background="@drawable/shap_social_media_icons"
             android:padding="16dp"
