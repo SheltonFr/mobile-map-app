@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--    09, 3rd from left -->
+    <color name="color_1">#446592</color>
+    <color name="color_2">#4A89AC</color>
+    <color name="color_3">#ACE5F6</color>
+    <color name="color_4">#E3FCF9</color>
 </resources>
