@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MapApp</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 
     <string name="distancia_texto">Distância</string>
     <string name="distancia">MARQUE UM DESTINO</string>
