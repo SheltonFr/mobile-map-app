@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ public class SigninActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAuthBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
 
         isPassValid = false;
         isUserValid = false;
@@ -94,12 +97,14 @@ public class SigninActivity extends AppCompatActivity {
             String password = binding.password.getText().toString();
 
             auth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, task -> {
+                binding.spinner.setVisibility(View.VISIBLE);
                 if (task.isSuccessful()) {
                     FirebaseUser user = auth.getCurrentUser();
                     startActivity(new Intent(SigninActivity.this, MainActivity.class));
                 } else {
                     Toast.makeText(SigninActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                 }
+                binding.spinner.setVisibility(View.INVISIBLE);
             });
         });
 
@@ -119,5 +124,7 @@ public class SigninActivity extends AppCompatActivity {
 
     }
 
+    public void facebookAuth() {
+    }
 
 }
