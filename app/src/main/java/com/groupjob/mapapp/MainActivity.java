@@ -96,14 +96,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         LatLng myLocation = this.myCurrentLocation;
-//        LatLng destination = destinationMarkers.get(0).getPosition();
         LatLng destination = latLng;
         double distance = SphericalUtil.computeDistanceBetween(myLocation, destination) / KILOMETRO;
 
         double roundedDistance = (double) Math.round(distance * TRES_CASAS_DECIMAIS) / TRES_CASAS_DECIMAIS;
 
         binding.distancia.setText(Double.toString(roundedDistance) + " KM");
-
+//        RouteDistanceTime.getDistance()
     }
 
     private void setCurrentLocation(){
