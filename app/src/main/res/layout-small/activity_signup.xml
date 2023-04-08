@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    android:paddingHorizontal="13dp"
-    tools:context=".SigninActivity">
+    android:paddingHorizontal="23dp"
+    tools:context=".SignupActivity">
+
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="68dp"
         android:gravity="center"
-        android:text="Sign In"
+        android:text="Sign Up"
         android:textColor="#fff"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -25,10 +26,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/text_sign"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="14dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,11 +47,11 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/go_create"
+            android:id="@+id/got_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Sign Up."
+            android:text="Sign In."
             android:textColor="@color/green"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -64,10 +65,10 @@
         android:background="@drawable/form_container_shape"
         android:orientation="vertical"
         android:paddingHorizontal="25dp"
-        android:paddingVertical="60dp"
+        android:paddingVertical="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/text_sign">
 
 
         <EditText
@@ -82,6 +83,12 @@
             android:hint="Password"
             android:inputType="textPassword" />
 
+        <EditText
+            android:id="@+id/confirm_password"
+            style="@style/editText"
+            android:hint="Confirm password"
+            android:inputType="textPassword" />
+
         <ProgressBar
             android:id="@+id/spinner"
             android:layout_width="wrap_content"
@@ -89,22 +96,11 @@
             android:layout_gravity="center_horizontal"
             android:visibility="invisible" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:gravity="center_horizontal"
-            android:text="Forgot the password?"
-            android:textColor="@color/green"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
         <Button
             android:id="@+id/button"
             style="@style/Button"
             android:text="Continue"
             android:textAllCaps="false" />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -131,7 +127,7 @@
                 android:elevation="1dp"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
-                android:text="Or Login using"
+                android:text="Or Register using"
                 android:textColor="@color/dark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -140,14 +136,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/media"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="80dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="13dp"
         android:divider="@drawable/space_between_icons"
         android:elevation="2dp"
         android:gravity="center"
@@ -159,26 +153,27 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:layout_width="70dp"
+            android:layout_width="56dp"
             android:layout_height="match_parent"
             android:background="@drawable/shap_social_media_icons"
             android:padding="16dp"
             android:src="@drawable/icons8_twitter" />
 
         <ImageView
-            android:layout_width="70dp"
+            android:layout_width="56dp"
             android:layout_height="match_parent"
             android:background="@drawable/shap_social_media_icons"
             android:padding="16dp"
             android:src="@drawable/googleg_standard_color_18" />
 
         <ImageView
-            android:layout_width="70dp"
+            android:layout_width="56dp"
             android:layout_height="match_parent"
             android:background="@drawable/shap_social_media_icons"
             android:padding="16dp"
             android:src="@drawable/icons_facepng" />
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

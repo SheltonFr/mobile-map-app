@@ -48,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
             String email = binding.username.getText().toString();
             String password = binding.password.getText().toString();
 
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+            auth.createUserWithEmailAndPassword("dev@teste.com", "000000").addOnCompleteListener(this, task -> {
                 if (task.isSuccessful()) {
                     Log.d("Auth", "DONE");
 

@@ -147,16 +147,17 @@
         android:id="@+id/media"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginBottom="80dp"
         android:divider="@drawable/space_between_icons"
         android:elevation="2dp"
+        android:layout_marginBottom="80dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="13dp"
         android:showDividers="middle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        >
 
         <ImageView
             android:layout_width="70dp"
