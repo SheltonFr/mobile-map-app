@@ -89,20 +89,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         computeDistance(latLng);
     }
 
-    private void computeDistance(LatLng latLng){
+    private void computeDistance(LatLng destinationCoordinates){
         if(this.myCurrentLocation == null){
             showToast("Ligue a localização e reinicie o aplicativo");
             return;
         }
 
         LatLng myLocation = this.myCurrentLocation;
-        LatLng destination = latLng;
-        double distance = SphericalUtil.computeDistanceBetween(myLocation, destination) / KILOMETRO;
+//        LatLng destination = destinationCoordinates;
+        double distance = SphericalUtil.computeDistanceBetween(myLocation, destinationCoordinates) / KILOMETRO;
 
         double roundedDistance = (double) Math.round(distance * TRES_CASAS_DECIMAIS) / TRES_CASAS_DECIMAIS;
 
         binding.distancia.setText(Double.toString(roundedDistance) + " KM");
-//        RouteDistanceTime.getDistance()
+
+        //CURRENTLY DOESN'T WORK
+//        new Thread(() -> {
+//            String[] informationArray = RouteDistanceTime.getInformationArray(myLocation, destinationCoordinates);
+//            if (informationArray.length < 2){
+//                showToast("Erro no servidor do Google");
+//                /// Na verdade não é um erro, para esta funcionalidades eles querem o credit card
+//            }else{
+//                binding.distancia.setText(informationArray[0]);
+//                binding.tempoEstimado.setText(informationArray[1]);
+//            }
+//        }).start();
     }
 
     private void setCurrentLocation(){
