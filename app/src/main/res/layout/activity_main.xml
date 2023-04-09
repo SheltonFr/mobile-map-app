@@ -23,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@drawable/round_rectangle"
-        android:gravity="bottom|center|center_horizontal|center_vertical"
+        android:background="@drawable/round_rectangle_info_card"
+        android:gravity="center|center_horizontal|center_vertical"
         android:orientation="horizontal"
         >
 
@@ -37,8 +37,9 @@
             <ImageView
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
+                android:background="@drawable/icon_background_rectangle"
                 android:src="@drawable/route_vector"
-                app:tint="@color/color_2" />
+                app:tint="@color/color_1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -47,11 +48,14 @@
 
                 <TextView
                     android:id="@+id/distancia"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/title_text_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/distancia" />
 
                 <TextView
+                    android:textSize="@dimen/subtitle_text_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/distancia_texto" />
@@ -67,8 +71,9 @@
             <ImageView
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
+                android:background="@drawable/icon_background_rectangle"
                 android:src="@drawable/clock_vector"
-                app:tint="@color/color_2" />
+                app:tint="@color/color_1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -77,11 +82,14 @@
 
                 <TextView
                     android:id="@+id/tempo_estimado"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/title_text_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tempo_estimado" />
 
                 <TextView
+                    android:textSize="@dimen/subtitle_text_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tempo_estimado_texto" />
