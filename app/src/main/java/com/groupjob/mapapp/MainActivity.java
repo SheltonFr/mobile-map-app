@@ -47,16 +47,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
-<<<<<<< HEAD
 
-        if(auth.getCurrentUser() == null) {
-            startActivity(new Intent(MainActivity.this, SigninActivity.class));
-        } else {
-            Log.d("EMAIL", auth.getCurrentUser().getEmail());
-        }
-=======
         validateUser();
->>>>>>> sfdev
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
