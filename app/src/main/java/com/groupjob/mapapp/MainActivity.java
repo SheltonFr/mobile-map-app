@@ -45,18 +45,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
-
-        if (auth.getCurrentUser() == null) {
-            startActivity(new Intent(MainActivity.this, SigninActivity.class));
-        } else {
-            Log.d("EMAIL", auth.getCurrentUser().getEmail());
-        }
+        validateUser();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         destinationMarkers = new ArrayList<>();
+
+
+        // Logout button implementation
+        binding.logoutButton.setOnClickListener(event -> {
+            auth.signOut();
+            validateUser();
+        });
     }
 
     @Override
@@ -163,6 +165,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void showToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void validateUser() {
+        if(auth.getCurrentUser() == null){
+            startActivity(new Intent(MainActivity.this, SigninActivity.class));
+            this.finish();
+        } else {
+            Log.i("Auth", auth.getCurrentUser().getEmail());
+        }
     }
 
     private static double roundNumber(double number, double casasDecimais){
