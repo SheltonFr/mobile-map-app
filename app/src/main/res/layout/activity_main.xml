@@ -60,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:weightSum="4"
         android:background="@drawable/gradient_card"
         android:elevation="3dp"
         android:gravity="center"
