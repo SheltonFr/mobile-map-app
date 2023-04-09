@@ -124,7 +124,4 @@ public class SigninActivity extends AppCompatActivity {
 
     }
 
-    public void facebookAuth() {
-    }
-
 }
