@@ -9,7 +9,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,10 +20,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ *  NOTA IMPORTANTE: Esta API nao
  *  FONTE PRIMARIA: https://developers.google.com/maps/documentation/routes/compute_route_directions
  *  BREVE DESCRICAO: Esta classe usa Google Routes API para encontrar a distancia e tempo de viagem de carro entre duas LatLong
  */
-public class RouteDistanceTime {
+public class GoogleRoutesAPI {
 
     private static final String API_KEY = "AIzaSyDQDEPMcXgETn-yN__zU2gSYHfTGfk9pr4";
     private static final String API_URL = "https://routes.googleapis.com/directions/v2:computeRoutes";
