@@ -44,12 +44,12 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${api_key}" />
+            android:value="AIzaSyDQDEPMcXgETn-yN__zU2gSYHfTGfk9pr4" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
+<!--        <activity-->
+<!--            android:name=".MapsActivity"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_maps" />-->
 
         <activity android:name=".SpashAcreen"
             android:screenOrientation="portrait"
