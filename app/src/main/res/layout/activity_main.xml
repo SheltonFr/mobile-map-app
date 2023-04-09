@@ -20,9 +20,10 @@
 
     <!-- O cartão de informações   -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
+        android:weightSum="5"
         android:background="@drawable/round_rectangle_info_card"
         android:gravity="center|center_horizontal|center_vertical"
         android:orientation="horizontal"
@@ -32,12 +33,12 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
-                android:background="@drawable/icon_background_rectangle"
                 android:src="@drawable/route_vector"
                 app:tint="@color/color_1" />
 
@@ -66,12 +67,12 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
-                android:background="@drawable/icon_background_rectangle"
                 android:src="@drawable/clock_vector"
                 app:tint="@color/color_1" />
 

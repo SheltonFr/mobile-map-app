@@ -18,10 +18,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.maps.android.SphericalUtil;
 
 import java.util.ArrayList;
 
@@ -30,14 +30,12 @@ import com.groupjob.mapapp.databinding.*;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-    private static final double KILOMETRO = 1000d;
-    private static final double TRES_CASAS_DECIMAIS = 1000d;
+//    private static final double KILOMETRO = 1000d;
+    private static ArrayList<Marker> destinationMarkers;
     private LatLng myCurrentLocation;
     private GoogleMap mMap;
     private ActivityMainBinding binding;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private static ArrayList<Marker> destinationMarkers;
-
     private FirebaseAuth auth;
 
     @Override
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         auth = FirebaseAuth.getInstance();
 
-        if(auth.getCurrentUser() == null) {
+        if (auth.getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, SigninActivity.class));
         } else {
             Log.d("EMAIL", auth.getCurrentUser().getEmail());
@@ -64,7 +62,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
+        mMap.setMinZoomPreference(6.0f);
+        mMap.setMaxZoomPreference(14.0f);
         mMap.setOnMapClickListener(latLng -> {
             selectDestination(latLng);
             Toast.makeText(MainActivity.this, "NOVO DESTINO SELECIONADO", Toast.LENGTH_LONG).show();
@@ -79,20 +79,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setCurrentLocation();
     }
 
-    private void askUserPermission(){
+    private void askUserPermission() {
         ActivityCompat.requestPermissions(
                 MainActivity.this,
                 new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+
     }
 
     /**
      * Adiciona um novo marcador no mapa na coordenada passada.
      * Remove todos outros marcadores do mapa.
+     *
      * @param latLng
      */
-    private void selectDestination(@NonNull LatLng latLng){
-        for (Marker marker: destinationMarkers) {
+    private void selectDestination(@NonNull LatLng latLng) {
+        for (Marker marker : destinationMarkers) {
             marker.remove();
         }
         LatLng destination = new LatLng(latLng.latitude, latLng.longitude);
@@ -102,19 +104,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         computeDistance(latLng);
     }
 
-    private void computeDistance(LatLng destinationCoordinates){
-        if(this.myCurrentLocation == null){
+    private void computeDistance(LatLng destinationCoordinates) {
+        if (this.myCurrentLocation == null) {
             showToast("Ligue a localização e reinicie o aplicativo");
             return;
         }
-
         LatLng myLocation = this.myCurrentLocation;
-//        LatLng destination = destinationCoordinates;
-        double distance = SphericalUtil.computeDistanceBetween(myLocation, destinationCoordinates) / KILOMETRO;
 
-        double roundedDistance = (double) Math.round(distance * TRES_CASAS_DECIMAIS) / TRES_CASAS_DECIMAIS;
+//        double distance = SphericalUtil.computeDistanceBetween(myLocation, destinationCoordinates) / KILOMETRO;
+//        double roundedDistance = (double) Math.round(distance * TRES_CASAS_DECIMAIS) / TRES_CASAS_DECIMAIS;
+//        binding.distancia.setText(Double.toString(roundedDistance) + " KM");
 
-        binding.distancia.setText(Double.toString(roundedDistance) + " KM");
+
+        final String[][] informationArray = {new String[2]};
+//        new Thread(() -> {
+            informationArray[0] = BingMapsAPI.getInformationArray(myLocation, destinationCoordinates);
+            if (informationArray[0].length < 2) {
+                showToast("Erro no servidor do Bing Maps");
+            } else {
+                binding.distancia.setText(roundNumber(Double.parseDouble(informationArray[0][0]), 1000d) + " Km");
+                binding.tempoEstimado.setText(roundNumber(Double.valueOf(informationArray[0][1])/60, 100d) + " min");
+            }
+//        });
 
         //CURRENTLY DOESN'T WORK
 //        new Thread(() -> {
@@ -129,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        }).start();
     }
 
-    private void setCurrentLocation(){
+    private void setCurrentLocation() {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -137,19 +148,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .addOnSuccessListener(this, location -> {
                         if (location != null) {
                             myCurrentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myCurrentLocation, 15));
                             mMap.setMyLocationEnabled(true);
-                        }else{
+                        } else {
                             showToast("Ligue a localização e reinicie o aplicativo");
                         }
                     });
-        }else{
+        } else {
             askUserPermission();
             mMap.setMyLocationEnabled(true); // todo: This should be invoked only if the user grants the permission
 
         }
     }
 
-    private void showToast(String message){
+    private void showToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private static double roundNumber(double number, double casasDecimais){
+        return (double) Math.round(number * casasDecimais) / casasDecimais;
     }
 }
