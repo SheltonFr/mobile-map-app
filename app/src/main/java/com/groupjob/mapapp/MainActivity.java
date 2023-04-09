@@ -47,18 +47,29 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
+<<<<<<< HEAD
 
         if(auth.getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, SigninActivity.class));
         } else {
             Log.d("EMAIL", auth.getCurrentUser().getEmail());
         }
+=======
+        validateUser();
+>>>>>>> sfdev
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         destinationMarkers = new ArrayList<>();
+
+
+        // Logout button implementation
+        binding.logoutButton.setOnClickListener(event -> {
+            auth.signOut();
+            validateUser();
+        });
     }
 
     @Override
@@ -79,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setCurrentLocation();
     }
 
-    private void askUserPermission(){
+    private void askUserPermission() {
         ActivityCompat.requestPermissions(
                 MainActivity.this,
                 new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
@@ -89,10 +100,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Adiciona um novo marcador no mapa na coordenada passada.
      * Remove todos outros marcadores do mapa.
+     *
      * @param latLng
      */
-    private void selectDestination(@NonNull LatLng latLng){
-        for (Marker marker: destinationMarkers) {
+    private void selectDestination(@NonNull LatLng latLng) {
+        for (Marker marker : destinationMarkers) {
             marker.remove();
         }
         LatLng destination = new LatLng(latLng.latitude, latLng.longitude);
@@ -102,8 +114,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         computeDistance(latLng);
     }
 
-    private void computeDistance(LatLng latLng){
-        if(this.myCurrentLocation == null){
+    private void computeDistance(LatLng latLng) {
+        if (this.myCurrentLocation == null) {
             showToast("Ligue a localização e reinicie o aplicativo");
             return;
         }
@@ -118,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        RouteDistanceTime.getDistance()
     }
 
-    private void setCurrentLocation(){
+    private void setCurrentLocation() {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -127,18 +139,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (location != null) {
                             myCurrentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.setMyLocationEnabled(true);
-                        }else{
+                        } else {
                             showToast("Ligue a localização e reinicie o aplicativo");
                         }
                     });
-        }else{
+        } else {
             askUserPermission();
             mMap.setMyLocationEnabled(true); // todo: This should be invoked only if the user grants the permission
 
         }
     }
 
-    private void showToast(String message){
+    private void showToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void validateUser() {
+        if(auth.getCurrentUser() == null){
+            startActivity(new Intent(MainActivity.this, SigninActivity.class));
+        } else {
+            Log.i("Auth", auth.getCurrentUser().getEmail());
+        }
     }
 }

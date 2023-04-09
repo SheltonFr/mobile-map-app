@@ -101,6 +101,7 @@ public class SigninActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseUser user = auth.getCurrentUser();
                     startActivity(new Intent(SigninActivity.this, MainActivity.class));
+                    finish();
                 } else {
                     Toast.makeText(SigninActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                 }
