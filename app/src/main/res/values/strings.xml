@@ -4,9 +4,10 @@
     <string name="title_activity_main">MainActivity</string>
 
     <string name="distancia_texto">Distância</string>
-    <string name="distancia">MARQUE UM DESTINO</string>
+    <string name="distancia">0 km</string>
 
     <string name="tempo_estimado_texto">Tempo Estimado</string>
-    <string name="tempo_estimado">STATIC</string>
+    <string name="tempo_estimado">0 min</string>
+
     <string name="google_maps_key">AIzaSyDQDEPMcXgETn-yN__zU2gSYHfTGfk9pr4</string>
 </resources>
