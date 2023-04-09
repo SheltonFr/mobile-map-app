@@ -1,7 +1,9 @@
 package com.groupjob.mapapp;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.ArrayList;
@@ -35,17 +38,29 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static ArrayList<Marker> destinationMarkers;
 
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        auth = FirebaseAuth.getInstance();
+        validateUser();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         destinationMarkers = new ArrayList<>();
+
+
+        // Logout button implementation
+        binding.logoutButton.setOnClickListener(event -> {
+            auth.signOut();
+            validateUser();
+        });
     }
 
     @Override
@@ -66,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setCurrentLocation();
     }
 
-    private void askUserPermission(){
+    private void askUserPermission() {
         ActivityCompat.requestPermissions(
                 MainActivity.this,
                 new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
@@ -76,10 +91,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Adiciona um novo marcador no mapa na coordenada passada.
      * Remove todos outros marcadores do mapa.
+     *
      * @param latLng
      */
-    private void selectDestination(@NonNull LatLng latLng){
-        for (Marker marker: destinationMarkers) {
+    private void selectDestination(@NonNull LatLng latLng) {
+        for (Marker marker : destinationMarkers) {
             marker.remove();
         }
         LatLng destination = new LatLng(latLng.latitude, latLng.longitude);
@@ -89,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         computeDistance(latLng);
     }
 
-    private void computeDistance(LatLng latLng){
-        if(this.myCurrentLocation == null){
+    private void computeDistance(LatLng latLng) {
+        if (this.myCurrentLocation == null) {
             showToast("Ligue a localização e reinicie o aplicativo");
             return;
         }
@@ -105,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        RouteDistanceTime.getDistance()
     }
 
-    private void setCurrentLocation(){
+    private void setCurrentLocation() {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -114,18 +130,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (location != null) {
                             myCurrentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.setMyLocationEnabled(true);
-                        }else{
+                        } else {
                             showToast("Ligue a localização e reinicie o aplicativo");
                         }
                     });
-        }else{
+        } else {
             askUserPermission();
             mMap.setMyLocationEnabled(true); // todo: This should be invoked only if the user grants the permission
 
         }
     }
 
-    private void showToast(String message){
+    private void showToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void validateUser() {
+        if(auth.getCurrentUser() == null){
+            startActivity(new Intent(MainActivity.this, SigninActivity.class));
+        } else {
+            Log.i("Auth", auth.getCurrentUser().getEmail());
+        }
     }
 }

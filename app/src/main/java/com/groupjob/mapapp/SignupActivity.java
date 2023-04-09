@@ -48,13 +48,11 @@ public class SignupActivity extends AppCompatActivity {
             String email = binding.username.getText().toString();
             String password = binding.password.getText().toString();
 
-            auth.createUserWithEmailAndPassword("dev@teste.com", "000000").addOnCompleteListener(this, task -> {
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
                 if (task.isSuccessful()) {
                     Log.d("Auth", "DONE");
-
-                    auth.signOut();
-//                    auth.updateCurrentUser(null);
                     startActivity(new Intent(SignupActivity.this, SigninActivity.class));
+                    finish();
                 } else {
                     Log.d("Auth", "ERROR");
                     Toast.makeText(SignupActivity.this, "Authentication Faild", Toast.LENGTH_SHORT).show();
