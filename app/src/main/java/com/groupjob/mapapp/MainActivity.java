@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
-        mMap.setMinZoomPreference(6.0f);
-        mMap.setMaxZoomPreference(14.0f);
+//        mMap.setMinZoomPreference(6.0f);
+//        mMap.setMaxZoomPreference(14.0f);
         mMap.setOnMapClickListener(latLng -> {
             selectDestination(latLng);
             Toast.makeText(MainActivity.this, "NOVO DESTINO SELECIONADO", Toast.LENGTH_LONG).show();
