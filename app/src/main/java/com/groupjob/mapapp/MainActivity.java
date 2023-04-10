@@ -2,6 +2,7 @@ package com.groupjob.mapapp;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,10 +22,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.google.maps.android.PolyUtil;
 import com.groupjob.mapapp.databinding.*;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -149,7 +153,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             binding.distancia.setText(informationArray[0][0]);
             binding.tempoEstimado.setText(informationArray[0][1]);
-            binding.currentLocation.setText(informationArray[0][2]);
+            String[] dd = informationArray[0][2].split(",");
+//            String s = "";
+//            for(int i = 1; )
+            binding.currentLocation.setText(informationArray[0][2].split(",")[1]);
+//            addPolylineToMap(informationArray[0][3]);
         }
 //        });
 
@@ -164,6 +172,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                binding.tempoEstimado.setText(informationArray[1]);
 //            }
 //        }).start();
+    }
+
+    private void addPolylineToMap(String polylineString){
+        List<LatLng> points = PolyUtil.decode(polylineString);
+        PolylineOptions options = new PolylineOptions()
+                .color(Color.BLUE)
+                .width(5)
+                .addAll(points);
+        mMap.addPolyline(options);
     }
 
     private void setCurrentLocation() {

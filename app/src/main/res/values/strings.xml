@@ -3,6 +3,8 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_main">MainActivity</string>
 
+    <string name="city">Maputo</string>
+
     <string name="distancia_texto">Distância</string>
     <string name="distancia">0 km</string>
 
