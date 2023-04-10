@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        checkAndAskPermissions();
 
         auth = FirebaseAuth.getInstance();
         validateUser();
@@ -53,12 +54,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         destinationMarkers = new ArrayList<>();
 
-
         // Logout button implementation
         binding.logoutButton.setOnClickListener(event -> {
             auth.signOut();
             validateUser();
         });
+
     }
 
     @Override
@@ -79,6 +80,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onRestart() {
         super.onRestart();
         setCurrentLocation();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                //TODO:
+            } else {
+                showToast("ACEITE AS PERMISSÕES PARA QUE POSSA USAR O APLICATIVO!");
+                ActivityCompat.requestPermissions(this, new String[]{
+                        android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.INTERNET
+                }, 1);
+            }
+        }
     }
 
     private void askUserPermission() {
@@ -157,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     });
         } else {
-            askUserPermission();
-            mMap.setMyLocationEnabled(true); // todo: This should be invoked only if the user grants the permission
+            checkAndAskPermissions();
+//            mMap.setMyLocationEnabled(true); // todo: This should be invoked only if the user grants the permission
 
         }
     }
@@ -178,5 +199,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static double roundNumber(double number, double casasDecimais){
         return (double) Math.round(number * casasDecimais) / casasDecimais;
+    }
+
+    private void checkAndAskPermissions(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+            }, 1);
+        }
+//        Nao podemos pedir duas permissoes de location
+//        if(ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(this, new String[]{
+//                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+//            }, 1);
+//        }
+
+        if(ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{
+                    android.Manifest.permission.INTERNET
+            }, 1);
+        }
     }
 }
