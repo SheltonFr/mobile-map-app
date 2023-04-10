@@ -35,7 +35,9 @@ public class DirectionsAPI {
 
             return new String[]{
                     getDistance(response.toString()),
-                    getTime(response.toString())
+                    getTime(response.toString()),
+                    getCity(response.toString()),
+                    getPolyline(response.toString())
             };
         } catch (JSONException | IOException e) {
             Log.d("DEBUGGING", e.getMessage());
@@ -123,19 +125,33 @@ public class DirectionsAPI {
         return coordinateString;
     }
 
-//    private String getCity(String jsonString){
-//        JSONObject obj = null;
-//        String distanceText;
-//        try {
-//            obj = new JSONObject(jsonString);
-//            JSONArray routes = obj.getJSONArray("routes");
-//            JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-//            distanceText = legs.getJSONObject(0).getString("end_address");
-//            return distanceText;
-//        } catch (JSONException e) {
-//            Log.d("DEBUGGING", "Error parsing json" + e.getMessage());
-//            e.printStackTrace();
-//            return "";
-//        }
-//    }
+    private static String getCity(String jsonString){
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(jsonString);
+            JSONArray routes = obj.getJSONArray("routes");
+            JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
+            String endAddress = legs.getJSONObject(0).getString("end_address");
+            return endAddress;
+        } catch (JSONException e) {
+            Log.d("DEBUGGING", "Error parsing json" + e.getMessage());
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private static String getPolyline(String jsonString){
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(jsonString);
+            JSONArray routes = obj.getJSONArray("routes");
+            JSONArray legs = routes.getJSONObject(0).getJSONArray("overview_polyline");
+            String points = legs.getJSONObject(0).getString("points");
+            return points;
+        } catch (JSONException e) {
+            Log.d("DEBUGGING", "Error parsing json" + e.getMessage());
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

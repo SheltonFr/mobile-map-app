@@ -141,14 +141,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 ////        });
 
 
-        final String[][] informationArray = {new String[2]};
+        final String[][] informationArray = {new String[4]};
 //        new Thread(() -> {
         informationArray[0] = DirectionsAPI.getInformationArray(myLocation, destinationCoordinates);
-        if (informationArray[0].length < 2) {
-            showToast("Erro no servidor do Bing Maps");
+        if (informationArray[0].length < 4) {
+            showToast("Erro no servidor do Google Maps");
         } else {
             binding.distancia.setText(informationArray[0][0]);
             binding.tempoEstimado.setText(informationArray[0][1]);
+            binding.currentLocation.setText(informationArray[0][2]);
         }
 //        });
 
