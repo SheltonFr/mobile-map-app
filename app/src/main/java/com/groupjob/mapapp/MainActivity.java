@@ -129,15 +129,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        binding.distancia.setText(Double.toString(roundedDistance) + " KM");
 
 
+//        final String[][] informationArray = {new String[2]};
+////        new Thread(() -> {
+//            informationArray[0] = BingMapsAPI.getInformationArray(myLocation, destinationCoordinates);
+//            if (informationArray[0].length < 2) {
+//                showToast("Erro no servidor do Bing Maps");
+//            } else {
+//                binding.distancia.setText(roundNumber(Double.parseDouble(informationArray[0][0]), 1000d) + " Km");
+//                binding.tempoEstimado.setText(roundNumber(Double.valueOf(informationArray[0][1])/60, 100d) + " min");
+//            }
+////        });
+
+
         final String[][] informationArray = {new String[2]};
 //        new Thread(() -> {
-            informationArray[0] = BingMapsAPI.getInformationArray(myLocation, destinationCoordinates);
-            if (informationArray[0].length < 2) {
-                showToast("Erro no servidor do Bing Maps");
-            } else {
-                binding.distancia.setText(roundNumber(Double.parseDouble(informationArray[0][0]), 1000d) + " Km");
-                binding.tempoEstimado.setText(roundNumber(Double.valueOf(informationArray[0][1])/60, 100d) + " min");
-            }
+        informationArray[0] = DirectionsAPI.getInformationArray(myLocation, destinationCoordinates);
+        if (informationArray[0].length < 2) {
+            showToast("Erro no servidor do Bing Maps");
+        } else {
+            binding.distancia.setText(informationArray[0][0]);
+            binding.tempoEstimado.setText(informationArray[0][1]);
+        }
 //        });
 
         //CURRENTLY DOESN'T WORK
